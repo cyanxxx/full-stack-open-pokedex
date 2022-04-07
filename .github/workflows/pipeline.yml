@@ -31,6 +31,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: deploy to heroku
+        if: ${{ github.event_name == 'push' }}
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
@@ -39,3 +40,13 @@ jobs:
           healthcheck: "https://tranquil-fortress-56814.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
+  tag_release:
+    if: ${{ github.event_name == 'push' }}
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

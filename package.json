@@ -6,11 +6,13 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "start-prod": "node app.js",
+    "start-heroku": "npm run build && npm run start-prod",
     "test": "jest",
     "cypress:open": "cypress open",
     "test:e2e": "cypress run",
     "eslint": "eslint './**/*.{js,jsx}'",
     "eslint-window": "eslint \"./**/*.{js,jsx}\"",
+    "deploy": "git push heroku master:refs/heads/main",
     "build": "webpack --mode production"
   },
   "repository": {

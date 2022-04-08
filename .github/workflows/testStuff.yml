@@ -26,7 +26,3 @@ jobs:
         env:
           NOT_SKIP_COMMIT_MESSAGES: ${{ !contains(join(github.event.commits.*.message, ','), '#skip') }}
         run: echo "$NOT_SKIP_COMMIT_MESSAGES"
-      - name: is skip commit messages
-        env:
-          SKIP_COMMIT_MESSAGES: ${{ contains(join(github.event.commits.*.message, ','), '#skip') }}
-        run: echo "$SKIP_COMMIT_MESSAGES"
